@@ -37,7 +37,7 @@ namespace Persistence.Contexts
             });
 
 
-
+            //Test için oluşturduğumuz veriler
             Brand[] brandEntitySeeds = { new(1, "BMW"), new(2, "Mercedes"), new(3, "Audi"), new(4, "Bugatti"), new(5, "Cadillac") };
             modelBuilder.Entity<Brand>().HasData(brandEntitySeeds);
 

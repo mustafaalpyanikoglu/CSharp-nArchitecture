@@ -11,7 +11,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CreateSomeFeatureEntityCommand createSomeFeatureEntityCommand)
         {
-            CreatedSomeFeatureEntityDto result = await Mediator.Send(createSomeFeatureEntityCommand);
+            CreatedSomeFeatureEntityDto result = await Mediator.Send(createSomeFeatureEntityCommand); //sadece brand de bulunan name gidiyor
             return Created("", result);
         }
 
