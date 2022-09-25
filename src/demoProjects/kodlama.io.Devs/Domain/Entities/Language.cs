@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class ProgrammingLanguage:Entity
+    public class Language:Entity
     {
         public string Name { get; set; }
 
-        public ProgrammingLanguage()
+        public Language()
         {
 
         }
 
-        public ProgrammingLanguage(int id,string name):this()
+        public Language(int id,string name):this()
         {
             Id = id;
             Name = name;
