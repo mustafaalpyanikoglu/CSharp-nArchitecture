@@ -1,4 +1,6 @@
 ﻿using Application.Features.Languages.Commands.CreateLanguage;
+using Application.Features.Languages.Commands.DeleteLanguage;
+using Application.Features.Languages.Commands.UpdateLanguage;
 using Application.Features.Languages.Dtos;
 using Application.Features.Languages.Models;
 using Application.Features.Languages.Queries.GetById;
@@ -17,9 +19,21 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Add([FromBody] CreateLanguageCommand createLanguageCommand)
         {
             CreateLanguageDto result = await Mediator.Send(createLanguageCommand); 
-            return Created("", result);
+            return Created("Eklenen: ", result);
         }
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody] DeleteLanguageCommand deleteLanguageCommand)
+        {
+            DeleteLanguageDto result = await Mediator.Send(deleteLanguageCommand);
+            return Ok($"{result} silindi");
+        }
+        [HttpPut]
 
+        public async Task<IActionResult> Update([FromBody] UpdateLanguageCommand updateLanguageCommand)
+        {
+            UpdateLanguageDto result = await Mediator.Send(updateLanguageCommand);
+            return Ok($"{result} güncellendi");
+        }
         [HttpGet]
         public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
         {

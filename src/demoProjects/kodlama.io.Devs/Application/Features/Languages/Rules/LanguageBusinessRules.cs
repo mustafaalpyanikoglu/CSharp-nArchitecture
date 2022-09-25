@@ -30,7 +30,7 @@ namespace Application.Features.Languages.Rules
             if (!result.Items.Any()) throw new BusinessException("Programming Language Not Found.");
         }
 
-        public void LanguageShouldExistWhenRequested(Language language)
+        public async Task LanguageShouldExistWhenRequested(Language language)
         {
             if (language == null) throw new BusinessException("Requested language does not exist");
         }

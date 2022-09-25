@@ -9,6 +9,8 @@ using Domain.Entities;
 using Application.Features.Languages.Dtos;
 using Application.Features.Languages.Models;
 using Application.Features.Languages.Commands.CreateLanguage;
+using Application.Features.Languages.Commands.DeleteLanguage;
+using Application.Features.Languages.Commands.UpdateLanguage;
 
 namespace Application.Features.Languages.Profiles
 {
@@ -19,6 +21,10 @@ namespace Application.Features.Languages.Profiles
         {
             CreateMap<Language, CreateLanguageDto>().ReverseMap();
             CreateMap<Language, CreateLanguageCommand>().ReverseMap();
+            CreateMap<Language, UpdateLanguageDto>().ReverseMap();
+            CreateMap<Language, UpdateLanguageCommand>().ReverseMap();
+            CreateMap<Language, DeleteLanguageDto>().ReverseMap();
+            CreateMap<Language, DeleteLanguageCommand>().ReverseMap();
             CreateMap<IPaginate<Language>, LanguageListModel>();
             CreateMap<Language, LanguageListDto>().ReverseMap();
             CreateMap<Language, LanguageGetByIdDto>().ReverseMap();
