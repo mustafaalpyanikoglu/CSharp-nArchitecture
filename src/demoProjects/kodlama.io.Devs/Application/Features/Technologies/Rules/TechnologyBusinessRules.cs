@@ -13,10 +13,12 @@ namespace Application.Features.Technologies.Rules
     public class TechnologyBusinessRules
     {
         private readonly ITechnologyRepository _technologyRepository;
+        private readonly ILanguageRepository _languageRepository;
 
-        public TechnologyBusinessRules(ITechnologyRepository technologyRepository)
+        public TechnologyBusinessRules(ITechnologyRepository technologyRepository, ILanguageRepository languageRepository)
         {
             this._technologyRepository = technologyRepository;
+            _languageRepository = languageRepository;
         }
 
         public async Task TechnologyNameCanNotBeRepeated(string name)
@@ -29,6 +31,12 @@ namespace Application.Features.Technologies.Rules
         {
             var result = await _technologyRepository.GetListAsync(p => p.Id == id);
             if (!result.Items.Any()) throw new BusinessException("Technology Not Found.");
+        }
+
+        public async Task TheLanguageYouWantToAddTechnologyToMustExist(int id)
+        {
+            var result = await _technologyRepository.GetListAsync(p => p.Id == id);
+            if (!result.Items.Any()) throw new BusinessException("The language you want to add technology to must exist.");
         }
 
         public async Task TechnologyShouldExistWhenRequested(Language language)

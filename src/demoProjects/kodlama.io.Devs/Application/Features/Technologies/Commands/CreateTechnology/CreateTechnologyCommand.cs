@@ -34,6 +34,7 @@ namespace Application.Features.Technologies.Commands.CreateTechnology
             public async Task<CreateTechnologyDto> Handle(CreateTechnologyCommand request, CancellationToken cancellationToken)
             {
                 await _technologyBusinessRules.TechnologyNameCanNotBeRepeated(request.Name);
+                await _technologyBusinessRules.TheLanguageYouWantToAddTechnologyToMustExist(request.LanguageId);
 
                 Technology mappedTechnology = _mapper.Map<Technology>(request);
                 Technology createTechnology = await _technologyRepository.AddAsync(mappedTechnology);
