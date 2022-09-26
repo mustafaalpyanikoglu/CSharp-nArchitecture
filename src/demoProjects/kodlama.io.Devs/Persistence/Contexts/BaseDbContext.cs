@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Core.Security.Entities;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -14,7 +15,9 @@ namespace Persistence.Contexts
         protected IConfiguration Configuration { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Technology> Technologies { get; set; }
-       
+        public DbSet<User> Users { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
 
         public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
         {
@@ -30,6 +33,7 @@ namespace Persistence.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region Language Model Creation
             modelBuilder.Entity<Language>(a =>
             {
                 a.ToTable("Languages").HasKey(k => k.Id);
@@ -38,6 +42,11 @@ namespace Persistence.Contexts
                 a.HasMany(p => p.Technologies);
             });
 
+            Language[] languageEntitySeeds = { new(1, "C#"), new(2, "Python"), new(3, "Java") };
+            modelBuilder.Entity<Language>().HasData(languageEntitySeeds);
+            #endregion
+
+            #region Technology Model Creation
             modelBuilder.Entity<Technology>(a =>
             {
                 a.ToTable("Technologies").HasKey(k => k.Id);
@@ -47,12 +56,50 @@ namespace Persistence.Contexts
                 a.HasOne(p => p.Language);
             });
 
-            Language[] languageEntitySeeds = { new(1, "C#"), new(2, "Python"), new(3, "Java") };
-            modelBuilder.Entity<Language>().HasData(languageEntitySeeds);
-
-
-            Technology[] technologyEntitySeeds = { new(1, 1,"WPF"),new(2, 1,"ASP.NET"), new(3, 2, "Spring")};
+            Technology[] technologyEntitySeeds = { new(1, 1, "WPF"), new(2, 1, "ASP.NET"), new(3, 2, "Spring") };
             modelBuilder.Entity<Technology>().HasData(technologyEntitySeeds);
+            #endregion
+
+            #region User Model Creation
+            modelBuilder.Entity<User>(u =>
+            {
+                u.ToTable("Users").HasKey(u => u.Id);
+                u.Property(u => u.Id).HasColumnName("Id");
+                u.Property(u => u.FirstName).HasColumnName("FirstName");
+                u.Property(u => u.LastName).HasColumnName("LastName");
+                u.Property(u => u.Email).HasColumnName("Email");
+                u.Property(u => u.Status).HasColumnName("Status");
+                u.Property(u => u.PasswordHash).HasColumnName("PasswordHash");
+                u.Property(u => u.PasswordSalt).HasColumnName("PasswordSalt");
+                u.Property(u => u.AuthenticatorType).HasColumnName("AuthenticatorType");
+                u.HasMany(u => u.UserOperationClaims);
+                u.HasMany(u => u.RefreshTokens);
+            });
+            #endregion
+
+            #region OperationClaim Model Creation
+            modelBuilder.Entity<OperationClaim>(u =>
+            {
+                u.ToTable("OperationClaims").HasKey(u => u.Id);
+                u.Property(u => u.Id).HasColumnName("Id");
+                u.Property(u => u.Name).HasColumnName("Name");
+            });
+
+            OperationClaim[] operationClaimEntitySeeds = { new(1, "Admin"), new(2, "User"), new(3, "Visitor") };
+            modelBuilder.Entity<OperationClaim>().HasData(operationClaimEntitySeeds);
+            #endregion
+
+            #region UserOperationClaim Model Creation
+            modelBuilder.Entity<UserOperationClaim>(u =>
+            {
+                u.ToTable("UserOperationClaims").HasKey(u => u.Id);
+                u.Property(u => u.Id).HasColumnName("Id");
+                u.Property(u => u.UserId).HasColumnName("UserId");
+                u.Property(u => u.OperationClaimId).HasColumnName("OperationClaimId");
+                u.HasOne(u => u.User);
+                u.HasOne(u => u.OperationClaim);
+            });
+            #endregion
 
         }
     }
