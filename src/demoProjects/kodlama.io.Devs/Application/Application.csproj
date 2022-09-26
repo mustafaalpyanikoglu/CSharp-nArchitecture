@@ -18,4 +18,11 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Languages\Constants\" />
+    <Folder Include="Features\Technologies\Commands\" />
+    <Folder Include="Features\Technologies\Constants\" />
+    <Folder Include="Features\Technologies\Rules\" />
+  </ItemGroup>
+
 </Project>
