@@ -40,7 +40,6 @@ namespace WebAPI.Controllers
             GetListLanguageQuery getListLanguageQuery = new() { PageRequest = pageRequest };
             LanguageListModel result = await Mediator.Send(getListLanguageQuery);
             return Ok(result);
-
         }
 
         [HttpGet("{Id}")]
