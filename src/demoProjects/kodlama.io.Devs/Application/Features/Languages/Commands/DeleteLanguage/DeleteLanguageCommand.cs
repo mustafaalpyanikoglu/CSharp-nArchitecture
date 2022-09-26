@@ -36,10 +36,6 @@ namespace Application.Features.Languages.Commands.DeleteLanguage
                 await _languageRepository.DeleteAsync(language);
 
                 DeleteLanguageDto deleteLanguageDto = _mapper.Map<DeleteLanguageDto>(language);
-                //Language mappedLanguage = _mapper.Map<Language>(request);
-                //Language deleteLanguage = await _languageRepository.DeleteAsync(mappedLanguage);
-
-                //DeleteLanguageDto deleteLanguageDto = _mapper.Map<DeleteLanguageDto>(deleteLanguage);
 
                 return deleteLanguageDto;
             }

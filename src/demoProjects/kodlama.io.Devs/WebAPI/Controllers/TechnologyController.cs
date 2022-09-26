@@ -1,4 +1,12 @@
-﻿using Application.Features.Technologies.Models;
+﻿using Application.Features.Languages.Commands.CreateLanguage;
+using Application.Features.Languages.Commands.DeleteLanguage;
+using Application.Features.Languages.Commands.UpdateLanguage;
+using Application.Features.Languages.Dtos;
+using Application.Features.Technologies.Commands.CreateTechnology;
+using Application.Features.Technologies.Commands.DeleteTechnology;
+using Application.Features.Technologies.Commands.UpdateTechnology;
+using Application.Features.Technologies.Dtos;
+using Application.Features.Technologies.Models;
 using Application.Features.Technologies.Queries.GetListTechnology;
 using Application.Features.Technologies.Queries.GetListTechnologyByDynamic;
 using Core.Application.Requests;
@@ -26,6 +34,25 @@ namespace WebAPI.Controllers
             GetListTechnologyByDynamicQuery getListTechnologyByDynamicQuery = new GetListTechnologyByDynamicQuery { PageRequest = pageRequest, Dynamic = dynamic};
             TechnologyListModel result = await Mediator.Send(getListTechnologyByDynamicQuery);
             return Ok(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] CreateTechnologyCommand createTechnologyCommand)
+        {
+            CreateTechnologyDto result = await Mediator.Send(createTechnologyCommand);
+            return Created("Eklenen: ", result);
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody] DeleteTechnologyCommand deleteTechnologyCommand)
+        {
+            DeleteTechnologyDto result = await Mediator.Send(deleteTechnologyCommand);
+            return Ok($"{result} silindi");
+        }
+        [HttpPut]
+
+        public async Task<IActionResult> Update([FromBody] UpdateTechnologyCommand updateTechnologyCommand)
+        {
+            UpdateTechnologyDto result = await Mediator.Send(updateTechnologyCommand);
+            return Ok($"{result} güncellendi");
         }
     }
 }
