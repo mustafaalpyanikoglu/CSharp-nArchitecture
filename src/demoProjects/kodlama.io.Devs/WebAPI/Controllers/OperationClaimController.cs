@@ -2,6 +2,8 @@
 using Application.Features.Languages.Models;
 using Application.Features.Languages.Queries.GetById;
 using Application.Features.Languages.Queries.GetListLanguage;
+using Application.Features.OperationClaims.Commands.CreateOperationClaim;
+using Application.Features.OperationClaims.Commands.UpdateOperationClaim;
 using Application.Features.OperationClaims.Dtos;
 using Application.Features.OperationClaims.Models;
 using Application.Features.OperationClaims.Queries.GetByIdOperationClaim;
@@ -19,6 +21,24 @@ namespace WebAPI.Controllers
     [ApiController]
     public class OperationClaimController : BaseController
     {
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] CreateOperationClaimCommand createOperationClaimCommand)
+        {
+            CreateOperationClaimDto result = await Mediator.Send(createOperationClaimCommand);
+            return Created("Eklenen: ", result);
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody] DeleteOperationClaimCommand deleteOperationClaimCommand)
+        {
+            DeleteOperationClaimDto result = await Mediator.Send(deleteOperationClaimCommand);
+            return Ok($"{result} silindi");
+        }
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateOperationClaimCommand updateOperationClaimCommand)
+        {
+            UpdateOperationClaimDto result = await Mediator.Send(updateOperationClaimCommand);
+            return Ok($"{result} güncellendi");
+        }
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetById([FromRoute] GetByIdOperationClaimQuery getByIdOperationClaimQuery)
         {

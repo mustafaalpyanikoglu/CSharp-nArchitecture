@@ -10,6 +10,6 @@ namespace Application.Features.OperationClaims.Models
 {
     public class OperationClaimListModel:BasePageableModel
     {
-        IList<ListOperationClaimDto> Items { get; set; }
+        public IList<ListOperationClaimDto> Items { get; set; }
     }
 }

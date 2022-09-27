@@ -19,7 +19,7 @@ namespace Application.Features.OperationClaims.Queries.GetListOperationClaim
     public class GetListOperationClaimQuery:IRequest<OperationClaimListModel>,ISecuredRequest
     {
         public PageRequest PageRequest { get; set; }
-        public string[] Roles => new[] { "Admin" };
+        public string[] Roles => new[] { "Admin"};
         public class GetListOperationClaimQueryHandler : IRequestHandler<GetListOperationClaimQuery, OperationClaimListModel>
         {
             private readonly IOperationClaimRepository _operationClaimRepository;
@@ -41,7 +41,7 @@ namespace Application.Features.OperationClaims.Queries.GetListOperationClaim
                 await _operationClaimBusinessRules.ShouldBeSomeDataInTheOperationClaimTableWhenRequested(operationClaims);
 
                 OperationClaimListModel mappedOperationClaimListModel = _mapper.Map<OperationClaimListModel>(operationClaims);
-
+                
                 return mappedOperationClaimListModel;
             }
         }
