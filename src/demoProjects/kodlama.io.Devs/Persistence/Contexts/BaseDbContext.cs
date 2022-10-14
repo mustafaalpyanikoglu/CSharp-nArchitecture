@@ -18,6 +18,7 @@ namespace Persistence.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
         {
@@ -98,6 +99,24 @@ namespace Persistence.Contexts
                 u.Property(u => u.OperationClaimId).HasColumnName("OperationClaimId");
                 u.HasOne(u => u.User);
                 u.HasOne(u => u.OperationClaim);
+            });
+            #endregion
+
+            #region RefreshToken Model Creation
+            modelBuilder.Entity<RefreshToken>(u =>
+            {
+                u.ToTable("RefreshTokens").HasKey(u => u.Id);
+                u.Property(u => u.Id).HasColumnName("Id");
+                u.Property(u => u.UserId).HasColumnName("UserId");
+                u.Property(u => u.Token).HasColumnName("Token");
+                u.Property(u => u.Expires).HasColumnName("Expires");
+                u.Property(u => u.Created).HasColumnName("Created");
+                u.Property(u => u.CreatedByIp).HasColumnName("CreatedByIp");
+                u.Property(u => u.Revoked).HasColumnName("Revoked");
+                u.Property(u => u.RevokedByIp).HasColumnName("RevokedByIp");
+                u.Property(u => u.ReplacedByToken).HasColumnName("ReplacedByToken");
+                u.Property(u => u.ReasonRevoked).HasColumnName("ReasonRevoked");
+                u.HasOne(u => u.User);
             });
             #endregion
 
