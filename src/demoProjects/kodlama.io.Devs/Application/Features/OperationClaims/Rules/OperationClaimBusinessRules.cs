@@ -17,11 +17,13 @@ namespace Application.Features.OperationClaims.Rules
         private readonly IUserOperationClaimRepository _userOperationClaimRepository;
         private readonly OperationClaimBusinessRulesMessages _messages;
 
-        public OperationClaimBusinessRules(IOperationClaimRepository operationClaimRepository, IUserOperationClaimRepository userOperationClaimRepository)
+        public OperationClaimBusinessRules(IOperationClaimRepository operationClaimRepository, IUserOperationClaimRepository userOperationClaimRepository, OperationClaimBusinessRulesMessages messages)
         {
             _operationClaimRepository = operationClaimRepository;
             _userOperationClaimRepository = userOperationClaimRepository;
+            _messages = messages;
         }
+
         public async Task OperationClaimNameCanNotBeDuplicatedWhenInsertedOrUpdated(string name)
         {
             IPaginate<OperationClaim> result = await _operationClaimRepository.GetListAsync(o => o.Name == name, enableTracking: false);

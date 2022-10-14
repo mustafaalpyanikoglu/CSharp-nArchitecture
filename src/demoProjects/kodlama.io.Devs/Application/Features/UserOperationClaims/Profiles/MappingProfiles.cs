@@ -3,6 +3,8 @@ using Application.Features.OperationClaims.Commands.UpdateOperationClaim;
 using Application.Features.OperationClaims.Dtos;
 using Application.Features.OperationClaims.Models;
 using Application.Features.UserOperationClaims.Commands.CreateUserOperationClaim;
+using Application.Features.UserOperationClaims.Commands.DeleteUserOperationClaim;
+using Application.Features.UserOperationClaims.Commands.UpdateUserOperationClaim;
 using Application.Features.UserOperationClaims.Dtos;
 using Application.Features.UserOperationClaims.Models;
 using AutoMapper;
@@ -23,11 +25,11 @@ namespace Application.Features.UserOperationClaims.Profiles
             CreateMap<UserOperationClaim, CreateUserOperationClaimCommand>().ReverseMap();
             CreateMap<UserOperationClaim, CreateUserOperationClaimDto>().ReverseMap();
 
-            /*CreateMap<UserOperationClaim, DeleteUserOperationClaimCommand>().ReverseMap();
+            CreateMap<UserOperationClaim, DeleteUserOperationClaimCommand>().ReverseMap();
             CreateMap<UserOperationClaim, DeleteUserOperationClaimDto>().ReverseMap();
 
             CreateMap<UserOperationClaim, UpdateUserOperationClaimDto>().ReverseMap();
-            CreateMap<UserOperationClaim, UpdateUserOperationClaimCommand>().ReverseMap();*/
+            CreateMap<UserOperationClaim, UpdateUserOperationClaimCommand>().ReverseMap();
 
             CreateMap<UserOperationClaim, GetByIdUserOperationClaimDto>().ReverseMap();
 

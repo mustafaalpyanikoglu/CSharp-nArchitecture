@@ -19,7 +19,7 @@ namespace Application.Features.UserOperationClaims.Queries.GetListUserOperationC
     public class GetListUserOperationClaimQuery : IRequest<UserOperationClaimListModel>, ISecuredRequest
     {
         public PageRequest PageRequest { get; set; }
-        public string[] Roles => throw new NotImplementedException();
+        public string[] Roles => new[] { "Admin" };
 
         public class GetListUserOperationClaimQueryHandler : IRequestHandler<GetListUserOperationClaimQuery, UserOperationClaimListModel>
         {
@@ -36,10 +36,11 @@ namespace Application.Features.UserOperationClaims.Queries.GetListUserOperationC
 
             public async Task<UserOperationClaimListModel> Handle(GetListUserOperationClaimQuery request, CancellationToken cancellationToken)
             {
-                IPaginate<UserOperationClaim>? userOperationClaims = await _userOperationClaimRepository.GetListAsync(include: x => x.Include(u => u.User).Include(u => u.OperationClaim),
-                                                                                                                      index: request.PageRequest.PageSize,
-                                                                                                                      size: request.PageRequest.PageSize,
-                                                                                                                      enableTracking: false);
+                IPaginate<UserOperationClaim>? userOperationClaims =
+                    await _userOperationClaimRepository.GetListAsync(include: x => x.Include(g => g.User).Include(g => g.OperationClaim),
+                                                                     index: request.PageRequest.Page,
+                                                                     size: request.PageRequest.PageSize,
+                                                                     enableTracking: false);
 
                 await _userOperationClaimBusinessRules.ShouldBeSomeDataInTheUserOperationClaimTableWhenRequested(userOperationClaims);
 
