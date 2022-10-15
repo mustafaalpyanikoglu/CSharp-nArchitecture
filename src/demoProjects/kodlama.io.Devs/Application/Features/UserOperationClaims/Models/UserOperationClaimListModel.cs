@@ -1,4 +1,5 @@
-﻿using Core.Persistence.Paging;
+﻿using Application.Features.UserOperationClaims.Dtos;
+using Core.Persistence.Paging;
 using Core.Security.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace Application.Features.UserOperationClaims.Models
 {
     public class UserOperationClaimListModel:BasePageableModel
     {
-        public IList<UserOperationClaim> Items { get; set; }
+        public IList<ListUserOperationClaimDto> Items { get; set; }
     }
 }

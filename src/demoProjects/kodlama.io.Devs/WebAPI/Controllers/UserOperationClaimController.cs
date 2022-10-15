@@ -49,14 +49,14 @@ namespace WebAPI.Controllers
             return Created("", result);
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateUserOperationClaimCommand updateUserOperationClaimCommand)
         {
             UpdateUserOperationClaimDto result = await Mediator.Send(updateUserOperationClaimCommand);
             return Ok(result);
         }
 
-        [HttpGet("delete")]
+        [HttpDelete("delete")]
         public async Task<IActionResult> Delete([FromQuery] DeleteUserOperationClaimCommand deleteUserOperationClaimCommand)
         {
             DeleteUserOperationClaimDto result = await Mediator.Send(deleteUserOperationClaimCommand);

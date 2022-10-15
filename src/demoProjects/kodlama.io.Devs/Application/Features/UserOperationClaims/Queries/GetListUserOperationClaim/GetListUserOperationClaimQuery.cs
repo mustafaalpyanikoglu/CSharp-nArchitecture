@@ -42,7 +42,7 @@ namespace Application.Features.UserOperationClaims.Queries.GetListUserOperationC
                                                                      size: request.PageRequest.PageSize,
                                                                      enableTracking: false);
 
-                await _userOperationClaimBusinessRules.ShouldBeSomeDataInTheUserOperationClaimTableWhenRequested(userOperationClaims);
+                //await _userOperationClaimBusinessRules.ShouldBeSomeDataInTheUserOperationClaimTableWhenRequested(userOperationClaims);
 
                 UserOperationClaimListModel mappedUserOperationClaimListModel = _mapper.Map<UserOperationClaimListModel>(userOperationClaims);
                 return mappedUserOperationClaimListModel;
