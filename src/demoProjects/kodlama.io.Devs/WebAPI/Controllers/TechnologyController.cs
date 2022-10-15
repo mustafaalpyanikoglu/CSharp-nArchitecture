@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class TechnologyController : BaseController
     {
-        [HttpGet]
+        [HttpGet("getlist")]
         public async Task<ActionResult> GetList([FromQuery] PageRequest pageRequest)
         {
             GetListTechnologyQuery getListTechnologyQuery = new GetListTechnologyQuery { PageRequest = pageRequest};
@@ -35,20 +35,22 @@ namespace WebAPI.Controllers
             TechnologyListModel result = await Mediator.Send(getListTechnologyByDynamicQuery);
             return Ok(result);
         }
-        [HttpPost]
+
+        [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody] CreateTechnologyCommand createTechnologyCommand)
         {
             CreateTechnologyDto result = await Mediator.Send(createTechnologyCommand);
             return Created("Eklenen: ", result);
         }
-        [HttpDelete]
+
+        [HttpDelete("delete")]
         public async Task<IActionResult> Delete([FromBody] DeleteTechnologyCommand deleteTechnologyCommand)
         {
             DeleteTechnologyDto result = await Mediator.Send(deleteTechnologyCommand);
             return Ok($"{result} silindi");
         }
-        [HttpPut]
 
+        [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateTechnologyCommand updateTechnologyCommand)
         {
             UpdateTechnologyDto result = await Mediator.Send(updateTechnologyCommand);

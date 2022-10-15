@@ -19,6 +19,8 @@ namespace Persistence.Contexts
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<GithubProfile> GithubProfiles { get; set; }
+
 
         public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
         {
@@ -120,6 +122,16 @@ namespace Persistence.Contexts
             });
             #endregion
 
+            #region GithubProfile Model Creation
+            modelBuilder.Entity<GithubProfile>(u =>
+            {
+                u.ToTable("GithubProfiles").HasKey(u => u.Id);
+                u.Property(u => u.Id).HasColumnName("Id");
+                u.Property(u => u.UserId).HasColumnName("UserId");
+                u.Property(u => u.Github).HasColumnName("Github");
+                u.HasOne(u => u.User);
+            });
+            #endregion
         }
     }
 }

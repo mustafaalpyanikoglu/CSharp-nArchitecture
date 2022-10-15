@@ -1,5 +1,7 @@
 ﻿using Application.Features.Auths.Constants;
 using Application.Features.Auths.Rules;
+using Application.Features.GithubProfiles.Constants;
+using Application.Features.GithubProfiles.Rules;
 using Application.Features.Languages.Rules;
 using Application.Features.OperationClaims.Constants;
 using Application.Features.OperationClaims.Rules;
@@ -41,6 +43,9 @@ namespace Application
 
             services.AddScoped<AuthBusinessRules>();
             services.AddScoped<AuthBusinessRulesMessages>();
+
+            services.AddScoped<GithubProfileBusinessRules>();
+            services.AddScoped<GithubProfileBusinessRulesMessages>();
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));

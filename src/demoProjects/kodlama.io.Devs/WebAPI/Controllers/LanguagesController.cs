@@ -15,26 +15,27 @@ namespace WebAPI.Controllers
     [ApiController]
     public class LanguagesController : BaseController
     {
-        [HttpPost]
+        [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody] CreateLanguageCommand createLanguageCommand)
         {
             CreateLanguageDto result = await Mediator.Send(createLanguageCommand); 
             return Created("Eklenen: ", result);
         }
-        [HttpDelete]
+        [HttpDelete("delete")]
         public async Task<IActionResult> Delete([FromBody] DeleteLanguageCommand deleteLanguageCommand)
         {
             DeleteLanguageDto result = await Mediator.Send(deleteLanguageCommand);
             return Ok($"{result} silindi");
         }
-        [HttpPut]
 
+        [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateLanguageCommand updateLanguageCommand)
         {
             UpdateLanguageDto result = await Mediator.Send(updateLanguageCommand);
             return Ok($"{result} güncellendi");
         }
-        [HttpGet]
+
+        [HttpGet("getlist")]
         public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
         {
             GetListLanguageQuery getListLanguageQuery = new() { PageRequest = pageRequest };

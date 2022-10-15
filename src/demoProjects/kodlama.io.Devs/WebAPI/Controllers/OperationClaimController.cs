@@ -21,30 +21,34 @@ namespace WebAPI.Controllers
     [ApiController]
     public class OperationClaimController : BaseController
     {
-        [HttpPost]
+        [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody] CreateOperationClaimCommand createOperationClaimCommand)
         {
             CreateOperationClaimDto result = await Mediator.Send(createOperationClaimCommand);
             return Created("Eklenen: ", result);
         }
-        [HttpDelete]
+
+        [HttpDelete("delete")]
         public async Task<IActionResult> Delete([FromBody] DeleteOperationClaimCommand deleteOperationClaimCommand)
         {
             DeleteOperationClaimDto result = await Mediator.Send(deleteOperationClaimCommand);
             return Ok($"{result} silindi");
         }
-        [HttpPut]
+
+        [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateOperationClaimCommand updateOperationClaimCommand)
         {
             UpdateOperationClaimDto result = await Mediator.Send(updateOperationClaimCommand);
             return Ok($"{result} güncellendi");
         }
+
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetById([FromRoute] GetByIdOperationClaimQuery getByIdOperationClaimQuery)
         {
             GetByIdOperationClaimDto getByIdOperationClaimDto = await Mediator.Send(getByIdOperationClaimQuery);
             return Ok(getByIdOperationClaimDto);
         }
+
         [HttpGet("getlist")]
         public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
         {
@@ -52,6 +56,7 @@ namespace WebAPI.Controllers
             OperationClaimListModel result = await Mediator.Send(getListOperationClaimQuery);
             return Ok(result);
         }
+
         [HttpPost("getlist/bydynamic")]
         public async Task<IActionResult> GetListByDynamic([FromQuery] PageRequest pageRequest, [FromBody] Dynamic dynamic)
         {

@@ -9,7 +9,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : BaseController
+    public class AuthsController : BaseController
     {
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] UserForRegisterDto userForRegisterDto)
