@@ -2,6 +2,7 @@
 using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Security.Entities;
+using Core.Security.Hashing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,18 @@ namespace Application.Features.Auths.Rules
         {
             User? user = await _userRepository.GetAsync(u => u.Email.ToLower() == email.ToLower());
             if (user != null) throw new BusinessException(_authBusinessRulesMessages.EmailAlreadyExist);
+        }
+
+        public async Task EmailShouldBeExistInTheUserTableWhenUserTryingToLogin(string email)
+        {
+            User? user = await _userRepository.GetAsync(u => u.Email.ToLower() == email.ToLower());
+            if (user == null) throw new BusinessException(_authBusinessRulesMessages.EmailNotFound);
+        }
+
+        public async Task PasswordShouldBeValidWhenUserTryingToLogin(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            if (!HashingHelper.VerifyPasswordHash(password, passwordHash, passwordSalt))
+                throw new BusinessException(_authBusinessRulesMessages.PasswordIsIncorrect);
         }
 
         public async Task OperationClaimShouldBeExistAfterDeveloperCreated(OperationClaim operationClaim)
