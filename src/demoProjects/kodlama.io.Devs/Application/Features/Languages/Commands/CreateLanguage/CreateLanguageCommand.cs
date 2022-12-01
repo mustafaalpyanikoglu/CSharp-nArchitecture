@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Languages.Commands.CreateLanguage
 {
-    public class CreateLanguageCommand:IRequest<CreateLanguageDto>,ISecuredRequest
+    public class CreateLanguageCommand:IRequest<CreateLanguageDto>//,ISecuredRequest
     {
         public string Name { get; set; }
 
-        public string[] Roles => new[] { "Admin" };
+        //public string[] Roles => new[] { "a" };
 
         public class CreateLanguageCommandHandler : IRequestHandler<CreateLanguageCommand, CreateLanguageDto>
         {
